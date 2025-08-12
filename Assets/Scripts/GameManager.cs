@@ -1,5 +1,4 @@
-﻿using UnityEditor.SearchService;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -12,11 +11,9 @@ public class RaceManager : MonoBehaviour
     private bool firstRace = true;
 
     [SerializeField] Transform startPoint;
-    [SerializeField] Transform endTrigger;
     [SerializeField] Text currentLap;
 
-    [SerializeField] GameObject winnerMenu;
-    [SerializeField] GameObject startMenu;
+    [SerializeField] GameObject raceOver_Menu;
     void Start()
     {
         firstRace = true;
@@ -26,7 +23,7 @@ public class RaceManager : MonoBehaviour
 
     void Update()
     {
-        // Кнопка для завершения круга2(Enter)
+        // Кнопка для завершения круга(Enter)
         if (Input.GetKeyDown(KeyCode.Return))
         {
             endLap();
@@ -40,6 +37,7 @@ public class RaceManager : MonoBehaviour
 
     public void endLap()
     {
+        // Простой if else т.к. кругов пока что только два,могу расширить
         if (firstRace)
         {
             recorder.StopRecording();
@@ -55,8 +53,8 @@ public class RaceManager : MonoBehaviour
             currentLap.text = "2/2";
 
             Debug.Log("Гонка завершена");
-            winnerMenu.SetActive(true);
+            raceOver_Menu.SetActive(true);
         }
     }
-    //Надеюсь мой код понятен и без коментариев
+    //Надеюсь остальной мой код понятен и без коментариев
 }

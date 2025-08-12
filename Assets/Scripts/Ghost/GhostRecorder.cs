@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class GhostRecorder : MonoBehaviour
@@ -25,6 +25,7 @@ public class GhostRecorder : MonoBehaviour
         return new GhostData(positions, rotations);
     }
 
+    //Fixed Update а не просто Update,небольшая но оптимизиация
     private void FixedUpdate()
     {
         if (!IsRecording) return;
