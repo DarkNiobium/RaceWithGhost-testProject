@@ -59,24 +59,21 @@ public class GameManager : MonoBehaviour
             raceOver_Menu.SetActive(true);
         }
     }
+    
     public void TeleportToFirstPoint()
     {
-        if (savedData.Positions.Count == 0)
-        {
-            Debug.LogWarning("Нет записанных позиций для телепорта!");
-            return;
+        if (savedData.Positions.Count == 0){
+            Debug.LogWarning("Позиции ещё не записаны!"); return;
         }
 
         Rigidbody rb = recorder.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
+        if (rb != null){
             rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
             rb.position = savedData.Positions[0];
             rb.rotation = savedData.Rotations[0];
         }
-        else
-        {
+        else{
             recorder.transform.position = savedData.Positions[0];
             recorder.transform.rotation = savedData.Rotations[0];
         }
