@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
         if (savedData.Positions.Count == 0){
             Debug.LogWarning("Позиции ещё не записаны!"); return;
         }
-
+        //Надо выключать физику перед тп,иначе машинка просто скачет на месте
         Rigidbody rb = recorder.GetComponent<Rigidbody>();
         if (rb != null){
             rb.linearVelocity = Vector3.zero;
