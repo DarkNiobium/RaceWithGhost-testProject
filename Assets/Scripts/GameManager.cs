@@ -1,24 +1,26 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
-public class RaceManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     public GhostRecorder recorder;
     public GhostPlayer ghostPlayer;
+    GhostData data;
 
     private GhostData savedData;
     private bool firstRace = true;
 
     [SerializeField] Transform startPoint;
-    [SerializeField] Text currentLap;
+    [SerializeField] TMP_Text currentLap;
 
     [SerializeField] GameObject raceOver_Menu;
     void Start()
     {
         firstRace = true;
         recorder.StartRecording();
-        recorder.gameObject.transform.position = startPoint.position;
+        data = recorder.GetData();
     }
 
     void Update()
@@ -46,7 +48,8 @@ public class RaceManager : MonoBehaviour
             ghostPlayer.Play(savedData);
 
             currentLap.text = "1/2";
-            recorder.gameObject.transform.position = startPoint.position;
+            TeleportToFirstPoint();
+
         }
         else
         {
@@ -56,5 +59,28 @@ public class RaceManager : MonoBehaviour
             raceOver_Menu.SetActive(true);
         }
     }
+    public void TeleportToFirstPoint()
+    {
+        if (savedData.Positions.Count == 0)
+        {
+            Debug.LogWarning("Нет записанных позиций для телепорта!");
+            return;
+        }
+
+        Rigidbody rb = recorder.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.position = savedData.Positions[0];
+            rb.rotation = savedData.Rotations[0];
+        }
+        else
+        {
+            recorder.transform.position = savedData.Positions[0];
+            recorder.transform.rotation = savedData.Rotations[0];
+        }
+    }
+
     //Надеюсь остальной мой код понятен и без коментариев
 }

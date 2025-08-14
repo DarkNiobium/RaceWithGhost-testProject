@@ -12,6 +12,8 @@ public class GhostRecorder : MonoBehaviour
     {
         positions.Clear();
         rotations.Clear();
+        positions.Add(transform.position); 
+        rotations.Add(transform.rotation);
         IsRecording = true;
     }
 
